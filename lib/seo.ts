@@ -7,6 +7,7 @@ interface PageSEOProps {
   path?: string;
   image?: string;
   type?: "website" | "article";
+  titleOnly?: boolean;
 }
 
 export function createMetadata({
@@ -15,16 +16,18 @@ export function createMetadata({
   path = "",
   image = `${SITE_URL}/og-default.jpg`,
   type = "website",
+  titleOnly = false,
 }: PageSEOProps): Metadata {
   const url = `${SITE_URL}${path}`;
+  const fullTitle = titleOnly ? title : `${title} | ${SITE_NAME}`;
 
   return {
-    title: `${title} | ${SITE_NAME}`,
+    title: fullTitle,
     description,
     metadataBase: new URL(SITE_URL),
     alternates: { canonical: url },
     openGraph: {
-      title: `${title} | ${SITE_NAME}`,
+      title: fullTitle,
       description,
       url,
       siteName: SITE_NAME,
@@ -34,7 +37,7 @@ export function createMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${SITE_NAME}`,
+      title: fullTitle,
       description,
       images: [image],
     },

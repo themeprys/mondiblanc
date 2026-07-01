@@ -22,6 +22,7 @@ const sourceSans = Source_Sans_3({
 export const metadata: Metadata = createMetadata({
   title: SITE_NAME,
   description: SITE_DESCRIPTION,
+  titleOnly: true,
 });
 
 export default async function RootLayout({

@@ -1,23 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import type { Nexus, Ecosystem } from "@/types";
+import type { Nexus, Ecosystem, NexusNode, EcosystemNode } from "@/types";
 
 interface EcosystemDiagramProps {
   data: Nexus | Ecosystem;
 }
 
+type DiagramNode = NexusNode | EcosystemNode;
+
+const DEFAULT_POSITIONS = [
+  { x: 50, y: 12 },
+  { x: 88, y: 35 },
+  { x: 75, y: 78 },
+  { x: 25, y: 78 },
+  { x: 12, y: 35 },
+];
+
+function getNodePosition(
+  node: DiagramNode,
+  index: number,
+): { x: number; y: number } {
+  if ("position" in node && node.position) {
+    return node.position;
+  }
+  return DEFAULT_POSITIONS[index] ?? DEFAULT_POSITIONS[0];
+}
+
 export function EcosystemDiagram({ data }: EcosystemDiagramProps) {
   const nodes = "nodes" in data ? data.nodes : [];
   const center = data.center;
-
-  const positions = [
-    { x: 50, y: 12 },
-    { x: 88, y: 35 },
-    { x: 75, y: 78 },
-    { x: 25, y: 78 },
-    { x: 12, y: 35 },
-  ];
 
   return (
     <div className="relative mx-auto aspect-square w-full max-w-lg">
@@ -28,8 +40,7 @@ export function EcosystemDiagram({ data }: EcosystemDiagramProps) {
         aria-label={`Ecosystem diagram centered on ${center}`}
       >
         {nodes.map((node, i) => {
-          const pos = "position" in node ? node.position : positions[i];
-          if (!pos) return null;
+          const pos = getNodePosition(node, i);
           return (
             <motion.line
               key={`line-${node.id}`}
@@ -73,8 +84,7 @@ export function EcosystemDiagram({ data }: EcosystemDiagramProps) {
         </text>
 
         {nodes.map((node, i) => {
-          const pos = "position" in node ? node.position : positions[i];
-          if (!pos) return null;
+          const pos = getNodePosition(node, i);
           return (
             <g key={node.id}>
               <motion.circle
