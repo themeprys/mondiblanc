@@ -1,6 +1,5 @@
 import { blogMockData } from "@/data/blog";
 import { publicationsMockData, reportsMockData } from "@/data/reports";
-import { patronsMockData } from "@/data/patrons";
 import type {
   AnnualReport,
   BlogPost,
@@ -42,8 +41,4 @@ export async function getPublications(): Promise<Publication[]> {
 
 export async function getAnnualReports(): Promise<AnnualReport[]> {
   return reportsMockData;
-}
-
-export async function getPatronsPage() {
-  return patronsMockData;
 }
