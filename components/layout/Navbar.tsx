@@ -7,6 +7,8 @@ import type { Navigation } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/shared/Container";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+
 
 interface NavbarProps {
   navigation: Navigation;
@@ -22,11 +24,16 @@ export function Navbar({ navigation }: NavbarProps) {
           className="flex h-16 items-center justify-between md:h-20"
           aria-label="Main navigation"
         >
+
           <Link
             href="/"
             className="font-serif text-xl font-medium tracking-tight md:text-2xl"
           >
-            MondiBlanc
+            <Image 
+            width="200"
+            height="20"
+            alt=""
+            src="/logo.png"/>
           </Link>
 
           <ul className="hidden items-center gap-8 lg:flex">

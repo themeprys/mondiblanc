@@ -11,8 +11,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
+      {
+        protocol: "https",
+        hostname: "imgix.cosmicjs.com",
+      },
     ],
   },
 };
 
 export default nextConfig;
+
