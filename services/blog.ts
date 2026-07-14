@@ -70,13 +70,16 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
     })
     .depth(1);
 
-  return objects
-    .map(mapBlog)
-    .sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() -
-        new Date(a.publishedAt).getTime(),
+  const blogs: BlogPost[] = objects.map(mapBlog);
+
+  blogs.sort((a: BlogPost, b: BlogPost) => {
+    return (
+      new Date(b.publishedAt).getTime() -
+      new Date(a.publishedAt).getTime()
     );
+  });
+
+  return blogs;
 }
 
 export async function getBlogPostBySlug(
